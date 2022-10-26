@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from functions import convert_pdf_to_txt_pages, convert_pdf_to_txt_file, save_pages, displayPDF
 
 
@@ -21,6 +22,9 @@ if pdf_file:
         totalPages = str(nbPages)+" pages in total."
         st.info(totalPages)
         st.download_button("Download txt file", text_data_f)
+        text = pd.read_csv('text_data_f.txt') 
+        data = text.to_csv('text_data_f.csv', index = None)
+        st.dataframe(data)
     else:
         text_data, nbPages = convert_pdf_to_txt_pages(pdf_file)
         totalPages = str(nbPages)+" pages in total."
